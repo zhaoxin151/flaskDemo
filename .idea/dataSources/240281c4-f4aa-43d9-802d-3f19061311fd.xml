@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="data-dev.sqlite">
-  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.8">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.11">
     <root id="1">
       <ServerVersion>3.25.1</ServerVersion>
     </root>
@@ -28,7 +28,6 @@
     <index id="11" parent="6" name="sqlite_autoindex_roles_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>name</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="12" parent="6">
@@ -74,7 +73,6 @@
     </column>
     <index id="22" parent="8" name="ix_users_username">
       <ColNames>username</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="23" parent="8">
