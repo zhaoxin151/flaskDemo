@@ -6,6 +6,10 @@ from app.forms import NameForm
 from app import db
 from app.models import User
 
+from app.decorators import admin_required, permission_required
+from app.models import Permission
+from flask_login import login_required
+
 @main.route('/', methods=['GET', 'POST'])
 def index():
     form = NameForm()
@@ -31,3 +35,15 @@ def index():
                            current_time=datetime.utcnow(),
                            form=form,
                            name=session.get('name'))
+
+@main.route('/admin')
+@login_required
+@admin_required
+def for_admins_only():
+    return 'For administrators'
+
+@main.route('/moderator')
+@login_required
+@permission_required(Permission.MODERATE_COMMENTS)
+def for_moderators_only():
+    return 'For comment moderators!'

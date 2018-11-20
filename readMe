@@ -13,4 +13,4 @@ python hello.py db upgrade
 
 ????
 
-python manage.py runserver
+python hello.py db upgrade

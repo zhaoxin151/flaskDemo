@@ -27,7 +27,7 @@
     <p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
     <br>
     {% if current_user.is_authenticated %}
-    <p><a href="url_for('changePassword')">change password</a></p>
+    <p><a href="{{ url_for('auth.change_password') }}">change password</a></p>
     {% endif %}
 </div>
 
