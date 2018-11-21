@@ -8,9 +8,5 @@ python manage.py db migrate -m "initial migration"
 
 3. ?????
 
-python hello.py db upgrade
+python manage.py db upgrade
 
-
-????
-
-python hello.py db upgrade

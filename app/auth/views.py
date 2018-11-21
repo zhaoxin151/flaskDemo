@@ -25,7 +25,7 @@ def login():
 def logout():
     logout_user()
     flash('You have been logged out')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('auth.login'))
 
 @auth.route('/register', methods=['POST', 'GET'])
 def register():
@@ -55,11 +55,10 @@ def confirm(token):
 
 @auth.before_app_request
 def before_request():
-    if current_user.is_authenticated \
-           and not current_user.confirmed \
-           and request.endpoint[:5] != 'auth.' \
-           and request.endpoint != 'static':
-        return redirect(url_for('auth.unconfirmed'))
+    if current_user.is_authenticated:
+        current_user.ping()   # refresh last seen
+        if not current_user.confirmed and request.endpoint[:5] != 'auth.':
+            return redirect(url_for('auth.unconfirmed'))
 
 @auth.route('/unconfirmed')
 def unconfirmed():

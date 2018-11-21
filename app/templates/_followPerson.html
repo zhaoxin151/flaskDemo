@@ -1,0 +1,14 @@
+
+<table class="table table-bordered">
+    <tr class="col-md-8 center-block">
+        <td>
+            <img src="../static/images/avatar.jpg" class="img-rounded profile-thumbnail">
+        </td>
+        <td>
+            <h1>{{ item['user'].username }}</h1>
+            <p>
+                Follow time: {{ moment(item.timestamp).format('L') }}
+            </p>
+        </td>
+    </tr>
+</table>

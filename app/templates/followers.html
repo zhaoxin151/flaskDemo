@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as macros %}
+
+{% block title %}Flasky - {{ title }}{% endblock %}
+
+{% block page_content %}
+
+<div>
+   <h3>Following</h3>
+    {% for item in follows %}
+    {% include '_followPerson.html' %}
+    {% endfor %}
+
+    {% if pagination %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, '.followers', username=user.username) }}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
