@@ -11,6 +11,9 @@ class Config:
     FLASKY_POSTS_PRE_PAGE = 10  # one page show items
 
     FLASKY_FOLLOWERS_PRE_PAGE = 3
+
+    FLASKY_COMMENTS_PRE_PAGE = 5
+
     @staticmethod
     def init_app(app):
         pass
