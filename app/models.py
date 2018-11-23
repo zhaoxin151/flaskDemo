@@ -171,7 +171,6 @@ class User(UserMixin, db.Model):
     def followed_posts(self):
         return Post.query.join(Follow, Follow.followed_id == Post.author_id).filter(Follow.follower_id == self.id)
 
-
     def to_json(self):
         json_user = {
             'url': url_for('api.get_user', id=self.id),
@@ -182,7 +181,7 @@ class User(UserMixin, db.Model):
             'followed_posts_url': url_for('api.get_user_followed_posts',
                                           id=self.id),
             'post_count': self.posts.count(),
-            'access_token': self.generate_auth_token().__str__()
+            'access_token': str(self.generate_auth_token(), encoding='utf-8')
         }
         return json_user
 
@@ -199,7 +198,8 @@ class User(UserMixin, db.Model):
             data = s.loads(token)
         except:
             return None
-        return User.query.get[data['id']]
+        print(data)
+        return User.query.filter_by(id=data['id']).first()
 
     # make fake data
     @staticmethod

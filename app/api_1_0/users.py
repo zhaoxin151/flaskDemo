@@ -6,8 +6,8 @@ import json
 
 @api.route('/user/login', methods=['POST'])
 def user_login():
-    email = request.form('email')
-    password = request.form('password')
+    email = request.form.get('email')
+    password = request.form.get('password')
     print(email)
     print(password)
 
@@ -23,22 +23,40 @@ def user_login():
         })
     if user.verify_password(password):
         return jsonify({
-            user.to_json()
+            'data': user.to_json()
         })
     else:
         return jsonify({
             "message": 'username and password not correct'
         })
 
-@api.route('/users/<int:id>', methods=['POST'])
-def get_user(id):
-    user = User.query.get_or_404(id)
-    return jsonify(user.to_json())
+
+@api.route('/users', methods=['POST'])
+def get_user():
+
+    token = request.form.get('access_token')
+    print(token)
+    user = User.verify_auth_token(token)
+    if user is not None:
+        return jsonify(user.to_json())
+    else:
+        return jsonify({
+            'message': 'token 验证失败'
+        })
 
 
-@api.route('/users/<int:id>/posts/')
-def get_user_posts(id):
-    user = User.query.get_or_404(id)
+@api.route('/users/posts', methods=['POST'])
+def get_user_posts():
+
+    token = request.form.get('access_token')
+    print(token)
+    user = User.verify_auth_token(token)
+
+    if user is None:
+        return jsonify({
+            'message': 'token 验证失败'
+        })
+
     page = request.args.get('page', 1, type=int)
     pagination = user.posts.order_by(Post.timestamp.desc()).paginate(
         page, per_page=10,
