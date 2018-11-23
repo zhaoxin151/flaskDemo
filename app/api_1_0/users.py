@@ -6,14 +6,10 @@ import json
 
 @api.route('/user/login', methods=['POST'])
 def user_login():
-    data = request.get_data()
-    print(data)
-    json_data = json.loads(data.decode("utf-8"))
-    print(json_data)
-    print(data)
-    email = json_data.get('email')
-    password = json_data.get('password')
-
+    email = request.form('email')
+    password = request.form('password')
+    print(email)
+    print(password)
 
     if email == '' or password == '':
         return jsonify({
